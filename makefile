@@ -2,6 +2,7 @@
 IMAGE_REG ?= docker.io
 IMAGE_REPO ?= internaldev/python-demoapp
 IMAGE_TAG ?= latest
+CONTAINER_NAME ?= python-demoapp
 
 # Used by `deploy` target, sets Azure webap defaults, override as required
 AZURE_RES_GROUP ?= temp-demoapps
@@ -35,6 +36,9 @@ image:  ## 🔨 Build container image from Dockerfile
 
 push:  ## 📤 Push container image to registry 
 	docker push $(IMAGE_REG)/$(IMAGE_REPO):$(IMAGE_TAG)
+
+stop:  ## 📤 stop container image 
+	docker stop $(CONTAINER_NAME)
 
 run: venv  ## 🏃 Run the server locally using Python & Flask
 	. $(SRC_DIR)/.venv/bin/activate \
